@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Verbs Quiz: Safety First!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .quiz-container {
+            max-width: 600px;
+            width: 95%;
+        }
+        .option-btn {
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .correct {
+            background-color: #2dd4bf !important; /* Tailwind's teal-400 */
+            color: white !important;
+            border-color: #0d9488 !important; /* Tailwind's teal-600 */
+        }
+        .incorrect {
+            background-color: #fb7185 !important; /* Tailwind's rose-400 */
+            color: white !important;
+            border-color: #e11d48 !important; /* Tailwind's rose-600 */
+        }
+        .disabled {
+            pointer-events: none;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 flex items-center justify-center min-h-screen p-4">
+
+    <div id="quiz" class="quiz-container bg-white p-6 sm:p-8 rounded-2xl shadow-lg">
+        <h1 class="text-2xl sm:text-3xl font-bold text-slate-800 text-center mb-2">Modal Verbs: Safety Quiz</h1>
+        <p class="text-slate-500 text-center mb-6">Choose the best modal verb to complete the sentence.</p>
+
+        <div id="quiz-content">
+            <div id="progress" class="flex justify-between items-center mb-4">
+                 <p id="question-counter" class="text-sm text-slate-500"></p>
+                 <p id="score" class="text-sm font-semibold text-slate-600">Score: 0</p>
+            </div>
+            <p id="question" class="text-lg sm:text-xl text-slate-700 mb-6 font-semibold h-24 flex items-center"></p>
+            <div id="options" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Options will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <div id="result-screen" class="hidden text-center">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">Quiz Complete!</h2>
+            <p id="final-score" class="text-xl text-slate-600 mb-2"></p>
+            <p id="feedback-message" class="text-slate-500 mb-6"></p>
+            <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors">
+                Try Again
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "You ___ wear a helmet when you ride a motorcycle. It's the law.",
+                options: ["must", "might", "shouldn't"],
+                answer: "must"
+            },
+            {
+                question: "You ___ touch that hot stove. You'll burn yourself!",
+                options: ["can", "mustn't", "don't have to"],
+                answer: "mustn't"
+            },
+            {
+                question: "When you cross the street, you ___ look both ways first.",
+                options: ["should", "can't", "might not"],
+                answer: "should"
+            },
+            {
+                question: "If you feel unwell, you ___ see a doctor.",
+                options: ["can't", "should", "mustn't"],
+                answer: "should"
+            },
+            {
+                question: "You ___ play with matches. It's very dangerous.",
+                options: ["shouldn't", "have to", "could"],
+                answer: "shouldn't"
+            },
+            {
+                question: "In case of a fire, you ___ use the elevator. Take the stairs.",
+                options: ["must", "should", "mustn't"],
+                answer: "mustn't"
+            },
+            {
+                question: "Drivers ___ stop when the traffic light is red.",
+                options: ["might", "must", "can"],
+                answer: "must"
+            },
+            {
+                question: "You ___ give your password to anyone. Keep it a secret.",
+                options: ["shouldn't", "have to", "can"],
+                answer: "shouldn't"
+            },
+            {
+                question: "To enter the construction site, workers ___ wear a hard hat.",
+                options: ["don't have to", "might", "have to"],
+                answer: "have to"
+            },
+            {
+                question: "This medicine ___ be dangerous if you take too much.",
+                options: ["can", "should", "mustn't"],
+                answer: "can"
+            },
+            {
+                question: "You ___ leave your bag unattended in a crowded place.",
+                options: ["don't have to", "shouldn't", "must"],
+                answer: "shouldn't"
+            },
+            {
+                question: "I'm not sure, but that exposed wire ___ be live. Don't touch it.",
+                options: ["might", "must", "can't"],
+                answer: "might"
+            },
+            {
+                question: "You ___ pay to enter the museum today, it's free!",
+                options: ["mustn't", "don't have to", "shouldn't"],
+                answer: "don't have to"
+            },
+            {
+                question: "If you hear the fire alarm, you ___ evacuate the building immediately.",
+                options: ["must", "might", "can't"],
+                answer: "must"
+            },
+            {
+                question: "You ___ swim in this part of the sea. The current is too strong.",
+                options: ["can", "can't", "have to"],
+                answer: "can't"
+            },
+            {
+                question: "Before you go hiking, you ___ tell someone about your plans.",
+                options: ["shouldn't", "mustn't", "should"],
+                answer: "should"
+            },
+            {
+                question: "Be careful, the floor is wet. You ___ slip and fall.",
+                options: ["could", "mustn't", "don't have to"],
+                answer: "could"
+            },
+            {
+                question: "Children ___ be left alone in a car, especially on a hot day.",
+                options: ["don't have to", "mustn't", "might"],
+                answer: "mustn't"
+            },
+            {
+                question: "You ___ stand so close to the edge of the train platform. It's unsafe.",
+                options: ["have to", "shouldn't", "can"],
+                answer: "shouldn't"
+            },
+            {
+                question: "In an emergency, you ___ call 999 for help in the UK.",
+                options: ["should", "mustn't", "could"],
+                answer: "should"
+            }
+        ];
+
+        // DOM elements
+        const quizContentEl = document.getElementById('quiz-content');
+        const questionEl = document.getElementById('question');
+        const optionsEl = document.getElementById('options');
+        const scoreEl = document.getElementById('score');
+        const questionCounterEl = document.getElementById('question-counter');
+        
+        const resultScreenEl = document.getElementById('result-screen');
+        const finalScoreEl = document.getElementById('final-score');
+        const feedbackMessageEl = document.getElementById('feedback-message');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // State variables
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            quizContentEl.classList.remove('hidden');
+            resultScreenEl.classList.add('hidden');
+            updateScoreDisplay();
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            // Reset state from previous question
+            optionsEl.innerHTML = '';
+            optionsEl.classList.remove('disabled');
+
+            // Get current question data
+            const currentQuestion = quizData[currentQuestionIndex];
+            
+            // Display question and counter
+            questionEl.textContent = currentQuestion.question;
+            questionCounterEl.textContent = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+
+            // Create and display option buttons
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.className = 'option-btn w-full bg-white border-2 border-slate-300 text-slate-700 font-semibold p-3 rounded-lg hover:bg-slate-50';
+                button.onclick = () => selectAnswer(button, option, currentQuestion.answer);
+                optionsEl.appendChild(button);
+            });
+        }
+        
+        function selectAnswer(button, selectedOption, correctAnswer) {
+            optionsEl.classList.add('disabled'); // Disable all buttons
+            
+            const isCorrect = selectedOption === correctAnswer;
+            if (isCorrect) {
+                score++;
+                button.classList.add('correct');
+            } else {
+                button.classList.add('incorrect');
+            }
+            
+            // Highlight the correct answer for learning
+            Array.from(optionsEl.children).forEach(btn => {
+                if (btn.textContent === correctAnswer) {
+                    btn.classList.add('correct');
+                }
+            });
+
+            updateScoreDisplay();
+
+            // Wait a moment before loading the next question
+            setTimeout(() => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < quizData.length) {
+                    loadQuestion();
+                } else {
+                    showResults();
+                }
+            }, 1500); // 1.5 second delay
+        }
+
+        function updateScoreDisplay() {
+            scoreEl.textContent = `Score: ${score}`;
+        }
+        
+        function showResults() {
+            quizContentEl.classList.add('hidden');
+            resultScreenEl.classList.remove('hidden');
+            
+            const percentage = Math.round((score / quizData.length) * 100);
+            finalScoreEl.textContent = `Your final score is ${score} out of ${quizData.length}. (${percentage}%)`;
+
+            let feedback = '';
+            if (percentage === 100) {
+                feedback = "Perfect! You're a safety expert!";
+            } else if (percentage >= 75) {
+                feedback = "Excellent work! You have a great understanding of these modal verbs.";
+            } else if (percentage >= 50) {
+                feedback = "Good job! A little more practice and you'll master it.";
+            } else {
+                feedback = "Good effort! Keep practicing to improve your understanding.";
+            }
+            feedbackMessageEl.textContent = feedback;
+        }
+
+        restartBtn.addEventListener('click', startQuiz);
+
+        // Initial start of the quiz
+        startQuiz();
+
+    </script>
+</body>
+</html>
