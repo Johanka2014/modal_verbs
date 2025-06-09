@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modal Verbs Quiz: Safety First!</title>
+    <title>Advanced Modal Verbs Quiz: C1 Safety Scenarios</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -22,9 +22,9 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .correct {
-            background-color: #2dd4bf !important; /* Tailwind's teal-400 */
+            background-color: #22c55e !important; /* Tailwind's green-500 */
             color: white !important;
-            border-color: #0d9488 !important; /* Tailwind's teal-600 */
+            border-color: #15803d !important; /* Tailwind's green-700 */
         }
         .incorrect {
             background-color: #fb7185 !important; /* Tailwind's rose-400 */
@@ -40,8 +40,14 @@
 <body class="bg-slate-100 flex items-center justify-center min-h-screen p-4">
 
     <div id="quiz" class="quiz-container bg-white p-6 sm:p-8 rounded-2xl shadow-lg">
-        <h1 class="text-2xl sm:text-3xl font-bold text-slate-800 text-center mb-2">Modal Verbs: Safety Quiz</h1>
-        <p class="text-slate-500 text-center mb-6">Choose the best modal verb to complete the sentence.</p>
+        <img
+            src="https://static.wixstatic.com/media/0f55f2_d0ce1f16f68b4f57ab1ee7c6337b7902~mv2.jpg"
+            alt="Safety First Illustration with various safety icons like a hard hat and warning sign"
+            class="w-full max-w-xs mx-auto mb-4 rounded-lg shadow-md"
+            onerror="this.onerror=null;this.src='https://placehold.co/400x200/e2e8f0/64748b?text=Image+Not+Found';"
+        >
+        <h1 class="text-2xl sm:text-3xl font-bold text-slate-800 text-center mb-2">Advanced Modal Verbs: C1 Safety Quiz</h1>
+        <p class="text-slate-500 text-center mb-6">Choose the most appropriate modal verb for each scenario.</p>
 
         <div id="quiz-content">
             <div id="progress" class="flex justify-between items-center mb-4">
@@ -55,10 +61,10 @@
         </div>
 
         <div id="result-screen" class="hidden text-center">
-            <h2 class="text-2xl font-bold text-slate-800 mb-4">Quiz Complete!</h2>
-            <p id="final-score" class="text-xl text-slate-600 mb-2"></p>
+            <h2 class="text-xl sm:text-2xl font-bold text-slate-800 mb-4">Quiz Complete!</h2>
+            <p id="final-score" class="text-lg sm:text-xl text-slate-600 mb-2"></p>
             <p id="feedback-message" class="text-slate-500 mb-6"></p>
-            <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors">
+            <button id="restart-btn" class="w-full sm:w-auto bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-colors">
                 Try Again
             </button>
         </div>
@@ -67,104 +73,104 @@
     <script>
         const quizData = [
             {
-                question: "You ___ wear a helmet when you ride a motorcycle. It's the law.",
-                options: ["must", "might", "shouldn't"],
+                question: "If you neglect the safety protocols, accidents ___ to happen.",
+                options: ["are bound", "may well", "should have"],
+                answer: "are bound"
+            },
+            {
+                question: "You ___ disregard the phishing email warning from the IT department. It's crucial.",
+                options: ["couldn't", "had better not", "don't have to"],
+                answer: "had better not"
+            },
+            {
+                question: "The emergency exits ___ to be kept clear, but they were blocked by boxes.",
+                options: ["were supposed", "might have", "would"],
+                answer: "were supposed"
+            },
+            {
+                question: "The security seal is broken. Someone ___ have tampered with the container.",
+                options: ["must", "should", "can't"],
                 answer: "must"
             },
             {
-                question: "You ___ touch that hot stove. You'll burn yourself!",
-                options: ["can", "mustn't", "don't have to"],
-                answer: "mustn't"
+                question: "As per regulations, employees ___ operate this machinery without prior certification.",
+                options: ["may not", "needn't", "can't have"],
+                answer: "may not"
             },
             {
-                question: "When you cross the street, you ___ look both ways first.",
-                options: ["should", "can't", "might not"],
+                question: "He ignored the warning signs and got injured. He ___ have been more cautious.",
+                options: ["must", "could", "should"],
                 answer: "should"
             },
             {
-                question: "If you feel unwell, you ___ see a doctor.",
-                options: ["can't", "should", "mustn't"],
-                answer: "should"
-            },
-            {
-                question: "You ___ play with matches. It's very dangerous.",
-                options: ["shouldn't", "have to", "could"],
-                answer: "shouldn't"
-            },
-            {
-                question: "In case of a fire, you ___ use the elevator. Take the stairs.",
-                options: ["must", "should", "mustn't"],
-                answer: "mustn't"
-            },
-            {
-                question: "Drivers ___ stop when the traffic light is red.",
-                options: ["might", "must", "can"],
-                answer: "must"
-            },
-            {
-                question: "You ___ give your password to anyone. Keep it a secret.",
-                options: ["shouldn't", "have to", "can"],
-                answer: "shouldn't"
-            },
-            {
-                question: "To enter the construction site, workers ___ wear a hard hat.",
-                options: ["don't have to", "might", "have to"],
-                answer: "have to"
-            },
-            {
-                question: "This medicine ___ be dangerous if you take too much.",
-                options: ["can", "should", "mustn't"],
-                answer: "can"
-            },
-            {
-                question: "You ___ leave your bag unattended in a crowded place.",
-                options: ["don't have to", "shouldn't", "must"],
-                answer: "shouldn't"
-            },
-            {
-                question: "I'm not sure, but that exposed wire ___ be live. Don't touch it.",
-                options: ["might", "must", "can't"],
-                answer: "might"
-            },
-            {
-                question: "You ___ pay to enter the museum today, it's free!",
-                options: ["mustn't", "don't have to", "shouldn't"],
-                answer: "don't have to"
-            },
-            {
-                question: "If you hear the fire alarm, you ___ evacuate the building immediately.",
-                options: ["must", "might", "can't"],
-                answer: "must"
-            },
-            {
-                question: "You ___ swim in this part of the sea. The current is too strong.",
-                options: ["can", "can't", "have to"],
+                question: "The system is still online; the hacker ___ have breached the main firewall yet.",
+                options: ["can't", "mustn't", "shouldn't"],
                 answer: "can't"
             },
             {
-                question: "Before you go hiking, you ___ tell someone about your plans.",
-                options: ["shouldn't", "mustn't", "should"],
-                answer: "should"
-            },
-            {
-                question: "Be careful, the floor is wet. You ___ slip and fall.",
-                options: ["could", "mustn't", "don't have to"],
+                question: "Without proper gear, a fall from that height ___ conceivably be fatal.",
+                options: ["should", "could", "must"],
                 answer: "could"
             },
             {
-                question: "Children ___ be left alone in a car, especially on a hot day.",
-                options: ["don't have to", "mustn't", "might"],
-                answer: "mustn't"
+                question: "Visitors ___ sign in at reception upon arrival; it's a strict policy.",
+                options: ["are to", "can", "would"],
+                answer: "are to"
             },
             {
-                question: "You ___ stand so close to the edge of the train platform. It's unsafe.",
-                options: ["have to", "shouldn't", "can"],
+                question: "I brought my own safety goggles, so I ___ have taken a pair from the lab.",
+                options: ["mustn't", "needn't", "couldn't"],
+                answer: "needn't"
+            },
+            {
+                question: "If the safety net hadn't been there, the consequences ___ have been far worse.",
+                options: ["would", "must", "should"],
+                answer: "would"
+            },
+            {
+                question: "One ___ to familiarise oneself with the evacuation plan before starting work here.",
+                options: ["ought", "has", "is bound"],
+                answer: "ought"
+            },
+            {
+                question: "The power outage ___ been caused by the storm, but we're still investigating other possibilities.",
+                options: ["must have", "might have", "should have"],
+                answer: "might have"
+            },
+            {
+                question: "You ___ have clicked that link without verifying the sender first. Now your data is at risk.",
+                options: ["mustn't", "couldn't", "shouldn't"],
                 answer: "shouldn't"
             },
             {
-                question: "In an emergency, you ___ call 999 for help in the UK.",
-                options: ["should", "mustn't", "could"],
-                answer: "should"
+                question: "Ignoring this software update ___ well lead to significant security vulnerabilities.",
+                options: ["can", "may", "ought to"],
+                answer: "may"
+            },
+            {
+                question: "The instructions were clear. You ___ have had any difficulty assembling the safety guard.",
+                options: ["can't", "mustn't", "needn't"],
+                answer: "can't"
+            },
+            {
+                question: "Given the potential for a chemical spill, you really ___ to wear the supplied respirator.",
+                options: ["would", "ought", "are bound"],
+                answer: "ought"
+            },
+            {
+                question: "He ___ have been speeding, otherwise he would have been able to stop in time.",
+                options: ["must", "could", "should"],
+                answer: "must"
+            },
+            {
+                question: "By law, all personnel entering this zone ___ be wearing a high-visibility jacket.",
+                options: ["are to", "would", "could"],
+                answer: "are to"
+            },
+            {
+                question: "It was a dangerous situation. You ___ have been seriously injured!",
+                options: ["should", "must", "could"],
+                answer: "could"
             }
         ];
 
@@ -185,6 +191,8 @@
         let score = 0;
 
         function startQuiz() {
+            // Shuffle the quiz data for variety on each attempt
+            quizData.sort(() => Math.random() - 0.5);
             currentQuestionIndex = 0;
             score = 0;
             quizContentEl.classList.remove('hidden');
@@ -259,13 +267,13 @@
 
             let feedback = '';
             if (percentage === 100) {
-                feedback = "Perfect! You're a safety expert!";
+                feedback = "Exceptional! Your command of modal verbs is truly C1 level.";
             } else if (percentage >= 75) {
-                feedback = "Excellent work! You have a great understanding of these modal verbs.";
+                feedback = "Excellent work. You have a strong grasp of these complex modal structures.";
             } else if (percentage >= 50) {
-                feedback = "Good job! A little more practice and you'll master it.";
+                feedback = "A solid performance. Reviewing the incorrect answers will help you master these nuances.";
             } else {
-                feedback = "Good effort! Keep practicing to improve your understanding.";
+                feedback = "Good effort. These are challenging concepts; consistent practice is key to improvement.";
             }
             feedbackMessageEl.textContent = feedback;
         }
